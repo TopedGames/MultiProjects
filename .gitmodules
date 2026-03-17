@@ -4,3 +4,6 @@
 [submodule "TGB.Deputy_Administrator_XChara"]
 	path = TGB.Deputy_Administrator_XChara
 	url = https://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@github.com/TopedGames/TGB.Deputy_Administrator_XChara.git
+[submodule "MineflayerBots"]
+	path = MineflayerBots
+	url = https://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@github.com/TopedGames/MineflayerBots.git
