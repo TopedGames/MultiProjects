@@ -1,0 +1,6 @@
+[build]
+builder = "nixpacks"
+buildCommand = "git submodule update --init --recursive"
+
+[deploy]
+startCommand = "bash start.sh"
