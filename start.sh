@@ -24,7 +24,7 @@ fi
 
 echo "Запускаю проект: $PROJECT"
 
-if [ ! -f "$PROJECT/package.json" ]; then
+if [ ! -d "$PROJECT/.git" ]; then
   echo "Клонирую $PROJECT..."
   rm -rf "$PROJECT"
   git clone "${REPOS[$PROJECT]}" "$PROJECT"
@@ -32,5 +32,32 @@ fi
 
 cd "$PROJECT" || { echo "Папка не найдена"; sleep infinity; }
 
-npm install
-npm start
+echo "=== Содержимое папки ==="
+ls -la
+
+# Node.js проект
+if [ -f "package.json" ]; then
+  echo "Тип: Node.js"
+  npm install
+  npm start
+
+# Python проект
+elif [ -f "requirements.txt" ]; then
+  echo "Тип: Python"
+  pip install -r requirements.txt
+  # Ищем главный файл
+  if [ -f "daxcs.py" ]; then
+    python daxcs.py
+  elif [ -f "main.py" ]; then
+    python main.py
+  elif [ -f "index.py" ]; then
+    python index.py
+  else
+    echo "Не найден главный .py файл"
+    sleep infinity
+  fi
+
+else
+  echo "Не знаю как запустить $PROJECT — нет package.json и requirements.txt"
+  sleep infinity
+fi
