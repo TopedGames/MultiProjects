@@ -3,9 +3,9 @@
 CONFIG="config.txt"
 
 declare -A REPOS
-REPOS["Errogram"]="https://github.com/TopedGames/Errogram.git"
-REPOS["MineflayerBots"]="https://github.com/TopedGames/MineflayerBots.git"
-REPOS["TGB.Deputy_Administrator_XChara"]="https://github.com/TopedGames/TGB.Deputy_Administrator_XChara.git"
+REPOS["Errogram"]="https://${GITHUB_TOKEN}@github.com/TopedGames/Errogram.git"
+REPOS["MineflayerBots"]="https://${GITHUB_TOKEN}@github.com/TopedGames/MineflayerBots.git"
+REPOS["TGB.Deputy_Administrator_XChara"]="https://${GITHUB_TOKEN}@github.com/TopedGames/TGB.Deputy_Administrator_XChara.git"
 
 PROJECT=""
 while IFS='=' read -r name value; do
