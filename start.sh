@@ -41,12 +41,18 @@ if [ -f "package.json" ]; then
 # Python проект
 elif [ -f "requirements.txt" ] || [ -f "daxcs.py" ] || [ -f "main.py" ]; then
   echo "Тип: Python"
-  # Установка Python если нет
   if ! command -v python3 &>/dev/null; then
     echo "Устанавливаю Python..."
-    apt-get update -qq && apt-get install -y python3 python3-pip
+    apt-get update -qq && apt-get install -y python3 python3-pip python3-venv
   fi
-  pip3 install -r requirements.txt --break-system-packages
+  # Создаём venv если нет
+  if [ ! -d "venv" ]; then
+    python3 -m venv venv
+  fi
+  source venv/bin/activate
+  # Фильтруем pip из requirements.txt — его нельзя ставить через pip
+  grep -v "^pip==" requirements.txt > requirements_filtered.txt
+  pip install -r requirements_filtered.txt
   if [ -f "daxcs.py" ]; then
     python3 daxcs.py
   elif [ -f "main.py" ]; then
