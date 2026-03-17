@@ -1,0 +1,3 @@
+Errogram=false
+MineflayerBots=false
+TGB.Deputy_Administrator_XChara=false
