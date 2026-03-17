@@ -32,9 +32,6 @@ fi
 
 cd "$PROJECT" || { echo "Папка не найдена"; sleep infinity; }
 
-echo "=== Содержимое папки ==="
-ls -la
-
 # Node.js проект
 if [ -f "package.json" ]; then
   echo "Тип: Node.js"
@@ -42,22 +39,23 @@ if [ -f "package.json" ]; then
   npm start
 
 # Python проект
-elif [ -f "requirements.txt" ]; then
+elif [ -f "requirements.txt" ] || [ -f "daxcs.py" ] || [ -f "main.py" ]; then
   echo "Тип: Python"
-  pip install -r requirements.txt
-  # Ищем главный файл
+  # Установка Python если нет
+  if ! command -v python3 &>/dev/null; then
+    echo "Устанавливаю Python..."
+    apt-get update -qq && apt-get install -y python3 python3-pip
+  fi
+  pip3 install -r requirements.txt
   if [ -f "daxcs.py" ]; then
-    python daxcs.py
+    python3 daxcs.py
   elif [ -f "main.py" ]; then
-    python main.py
+    python3 main.py
   elif [ -f "index.py" ]; then
-    python index.py
-  else
-    echo "Не найден главный .py файл"
-    sleep infinity
+    python3 index.py
   fi
 
 else
-  echo "Не знаю как запустить $PROJECT — нет package.json и requirements.txt"
+  echo "Не знаю как запустить $PROJECT"
   sleep infinity
 fi
