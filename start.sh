@@ -46,7 +46,7 @@ elif [ -f "requirements.txt" ] || [ -f "daxcs.py" ] || [ -f "main.py" ]; then
     echo "Устанавливаю Python..."
     apt-get update -qq && apt-get install -y python3 python3-pip
   fi
-  pip3 install -r requirements.txt
+  pip3 install -r requirements.txt --break-system-packages
   if [ -f "daxcs.py" ]; then
     python3 daxcs.py
   elif [ -f "main.py" ]; then
